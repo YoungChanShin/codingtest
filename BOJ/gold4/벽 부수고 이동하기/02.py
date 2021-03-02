@@ -6,44 +6,30 @@ input = sys.stdin.readline
 
 N,M = list(map(int,input().split()))
 maps = [list(input()) for _ in range(N)]
-wall_break = [[0]*M for _ in range(N)]
 di = [0,0,-1,1]
 dj = [1,-1,0,0]
+init_ans = 1000000
 
-# walls = []
-# for i in range(N):
-#     for j in range(M):
-#         if maps[i][j] == '1':
-#             walls.append((i,j))
 def bfs():
     q = deque()
-    q.append((0,0))
-    visited = [[0]*M for i in range(N)]
-    visited[0][0] = 1
+    q.append((0,0,0))
+    visited = [[[init_ans]*2 for j in range(M)] for i in range(N)]
+    visited[0][0][0] = 1
     while q:
-        row, col = q.popleft()
+        row, col, wall_break = q.popleft()
         for i in range(4):
             new_row = row+di[i]
             new_col = col+dj[i]
-            cnt = visited[row][col]
-            if -1<new_row<N and -1<new_col<M and visited[new_row][new_col]==0 and maps[new_row][new_col] == '0':
-                if new_row == N-1 and new_col == M-1:
-                    return cnt+1
-                visited[new_row][new_col] = cnt + 1
-                q.append((new_row,new_col))
-    return -1
+            cnt = visited[row][col][wall_break]
+            if -1<new_row<N and -1<new_col<M:
+                if maps[new_row][new_col] == '0' and visited[new_row][new_col][wall_break] == init_ans:
+                    visited[new_row][new_col][wall_break] = cnt + 1
+                    q.append((new_row,new_col, wall_break))
+                elif maps[new_row][new_col] == '1' and wall_break == 0 and visited[new_row][new_col][wall_break+1] == init_ans:
+                    visited[new_row][new_col][wall_break+1] = cnt + 1
+                    q.append((new_row,new_col,wall_break+1))
+    return min(visited[N-1][M-1])
+                
 
-answer = 1000000
-# for i in range(len(walls)):
-#     row, col = walls[i][0], walls[i][1]
-#     maps[row][col] = '0'
-#     ret = bfs()
-#     if ret>0:
-#         answer = min(answer, ret)
-#     maps[row][col] = '1'
-bfs()
-
-if answer == 1000000:
-    print(-1)
-else:
-    print(answer)
+ret = bfs()
+print(-1) if ret==init_ans else print(ret)
