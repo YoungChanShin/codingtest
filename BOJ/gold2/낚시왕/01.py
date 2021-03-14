@@ -1,5 +1,6 @@
 import sys
 sys.stdin = open('input.txt')
+input = sys.stdin.readline
 
 R,C,M = list(map(int,input().split()))
 maps = [[[]]*C for _ in range(R)]
@@ -55,10 +56,6 @@ def move(maps, r, c):
 
 cnt = 0
 for i in range(C):
-    # # 출력
-    # for x in maps:
-    #     print(x)
-    # 낚시
     for j in range(R):
         if maps[j][i]:
             cnt += maps[j][i][2]
