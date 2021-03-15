@@ -20,9 +20,6 @@ def isPossible(si, sj, size):
 
 sheets = 100
 def solution(si,sh):
-    # for i in paper:
-    #     print(i)
-    # print(sh)
     global sheets
     for i in range(10):
         for j in range(10):
@@ -48,7 +45,7 @@ def solution(si,sh):
                             return 100
                         for x in range(i,i+s):
                             for y in range(j,j+s):
-                                paper[x][y] = str(s*10)
+                                paper[x][y] = '2'
                         p_5[s] -= 1
                         solution(si, sh+1)
                         for x in range(i,i+s):
@@ -61,5 +58,3 @@ def solution(si,sh):
                         
 solution(0,0)
 print(sheets if sheets!=100 else -1)
-# print(ret if ret != 100 else -1)
-# print(sheets)

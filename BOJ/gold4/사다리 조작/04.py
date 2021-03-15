@@ -1,5 +1,3 @@
-from itertools import combinations 
-from collections import deque
 import sys
 sys.stdin = open('input.txt')
 input = sys.stdin.readline
@@ -17,19 +15,14 @@ for i in range(1,H+1):
         if pick[i][j]==0 and pick[i][j-1]==0 and pick[i][j+1]==0:
             candidates.append([i,j])
 
-def go(si,sj):
-    if pick[si][sj]:
-        return (si+1, sj+1)
-    elif pick[si][sj-1]:
-        return (si+1, sj-1)
-    else:
-        return (si+1, sj)
-
 def simulate():
     for i in range(1,N+1):
-        si,sj = 0,i
-        while si<=H:
-            si,sj = go(si,sj)
+        sj = i
+        for j in range(1,H+1):
+            if pick[j][sj]:
+                sj += 1
+            elif pick[j][sj-1]:
+                sj -= 1
         if sj == i:
             continue
         else:
