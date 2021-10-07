@@ -1,8 +1,6 @@
 def solution(str1, str2):
     answer = 65536
     total = 0 # 합집합의 수와 교집합의 수를 더한 값을 저장한다.
-    total_A = 0
-    total_B = 0
     Ex = 0
 
     A_set = dict()
@@ -14,7 +12,6 @@ def solution(str1, str2):
     for i in range(n-1):
         if str1[i].isalpha() and str1[i+1].isalpha():
             total += 1
-            total_A += 1
             chuck = str1[i:i+2]
             if chuck in A_set.keys():
                 A_set[chuck] += 1
@@ -25,7 +22,6 @@ def solution(str1, str2):
     for i in range(n-1):
         if str2[i].isalpha() and str2[i+1].isalpha():
             total += 1
-            total_B += 1
             chuck = str2[i:i+2]
             if chuck in A_set.keys():
                 # Ex += 1

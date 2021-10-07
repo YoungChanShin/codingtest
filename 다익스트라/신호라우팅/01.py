@@ -19,12 +19,12 @@ def dijkstra(adj, start):
         if closest == inf:
             break
         visited[here] = 1
-        for i in range(V):
-            if adj[here][i]:
-                there = i
+        size = len(adj[here])
+        for i in range(size):
+            there = adj[here][i][0]
             if visited[there]:
                 continue
-            nextDist = dist[here] * adj[here][i]
+            nextDist = dist[here] * adj[here][i][1]
             dist[there] = min(dist[there], nextDist)
     
     return dist
@@ -33,12 +33,13 @@ def dijkstra(adj, start):
 
 for i in range(int(input())):
     V, E = list(map(int,input().split()))
-    adj = [[inf]*V for _ in range(V)]
+    adj = [[] for _ in range(V)]
     for _ in range(E):
         s, e, cost = input().split()
         s = int(s)
         e = int(e)
-        adj[s][e] = float(cost)
-        adj[e][s] = float(cost)
+        cost = float(cost)
+        adj[s].append([e,cost])
+        adj[e].append([s,cost])
     ret = dijkstra(adj, 0)
     print(ret[-1])
