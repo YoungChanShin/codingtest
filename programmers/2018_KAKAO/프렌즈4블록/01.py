@@ -35,25 +35,22 @@ def solution(height, width, board):
         for i in range(height):
             for j in range(width):
                 new_board[j][i] = board[i][j]
-        
+
         new_bubble = [[0 for i in range(height)] for j in range(width)]
         for i in range(height):
             for j in range(width):
                 new_bubble[j][i] = bubble[i][j]
 
-
         for i in range(width):
             for j in range(height):
                 if new_bubble[i][j] == 1:
-                    for k in range(j+1,height):
+                    for k in range(j + 1, height):
                         if new_bubble[i][k] == 0:
-                            new_board[i][j:j+(height-k)] = new_board[i][k:]
-                            for l in range(k,height):
+                            new_board[i][j : j + (height - k)] = new_board[i][k:]
+                            for l in range(k, height):
                                 new_board[i][l]
                             break
-                    
 
-        
     return answer
 
 
