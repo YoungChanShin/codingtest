@@ -1,6 +1,5 @@
+answer=0
 def solution(info, edges):
-    global answer
-    answer = 0
     
     graph = [[ ] for i in range(len(info))]
     for p,ch in edges:
